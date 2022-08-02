@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Trang Admin</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/admincss/style.css}" />
+<link th:href="@{https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i}" rel="stylesheet">
+
+</head>
+<body>
+	<div class="col-sm-12 mx-auto" th:if="${session.user==null}") style="text-align: center;"> <!-- không đăng nhập thì hiển thị trang Đăng nhập-->
+		<h1>VUI LÒNG ĐĂNG NHẬP</h1>
+		<a class="nav-link" href="/account/login">ĐĂNG NHẬP</a>
+	</div>
+	<div th:unless="${session.user==null}" > <!-- không đăng nhập thì hiển thị trang quản lý tài khoản-->
+
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span></button>
+				<a class="navbar-brand" href="#"><span>The Computer</a>
+			
+			</div>
+		</div>
+	</nav>
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<div class="profile-sidebar">
+
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">Admin</div>
+			
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="divider"></div>
+		<ul class="nav menu">
+			<li ><a href="/Admin/Views"><em class="fa fa-dashboard">&nbsp;</em> THỐNG KÊ</a></li>
+			<li ><a href="/Admin/Product"><em class="fa fa-bar-chart">&nbsp;</em>QUẢN LÝ SẢN PHẨM</a></li>
+			<li class="active"><a href="/Admin/Account"><em class="fa fa-toggle-off">&nbsp;</em> QUẢN LÝ TÀI KHOẢN</a></li>
+			<li ><a href="/Admin/Order"><em class="fa fa-toggle-off">&nbsp;</em> QUẢN LÝ ĐƠN HÀNG</a></li>
+			<li><a href="/account/logout"><em class="fa fa-power-off">&nbsp;</em>ĐĂNG XUẤT</a></li>
+		</ul>
+	</div>
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<a href="Addaccount" class=" aligntittle  btn btn-outline-primary mr-auto p-2" >&#10133; THÊM TÀI KHOẢN</a>
+			</ol>
+		</div>
+		<!--/.row-->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<div>
+								
+								<div class="panel-heading text-center">
+									QUẢN LÝ TÀI KHOẢN
+								</div>
+								</br></br>
+								<table  class="table table-striped" >
+
+
+								<thead>
+								<tr>
+									<th>ID</th>
+									<th>TÊN ĐĂNG NHẬP</th>
+									<th>MẬT KHẨU</th>
+									<th>HỌ TÊN</th>
+									<th>SỐ ĐIỆN THOẠI</th>
+									<th>ĐỊA CHỈ</th>
+									<th>Role</th>
+									<th>Activated</th>
+									<th>THAO TÁC</th>
+								</tr>
+								</thead>
+								
+								<tbody>
+								<tr th:each="account : ${listAccount}">
+								
+								<td th:text = "${account.Id}">ID</td>
+								<td th:text = "${account.username}">TÊN ĐĂNG NHẬP</td>
+								
+								<td th:text = "${account.password}">MẬT KHẨU</td>
+								<td th:text = "${account.fullname}">HỌ VÀ TÊN</td>
+								<td th:text = "${account.phone}">SỐ ĐIỆN THOẠI</td>
+								<td th:text = "${account.address}">ĐỊA CHỈ</td>
+								<td th:text = "${account.role}">Role</td>
+								<td th:text = "${account.activated}">Role</td>
+								<td> <a class="btn btn-primary" th:href="@{'/Admin/Editaccount/' + ${account.Id}}">SỬA</a>
+
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<a class="btn btn-danger" th:href="@{'/Admin/Deleteaccount/' + ${account.Id}}">XÓA</a>
+
+								</td>
+								</tr>
+								</tbody>
+								</table>
+							
+							</div>
+							<canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+	</div>	
+	</div>
+</body>
+</html>
